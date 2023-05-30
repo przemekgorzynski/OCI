@@ -56,8 +56,11 @@ jobs:
       - name: Prepare key file
         run: |
           mkdir ~/.oci
+          echo 1
           touch ${{ env.TF_VAR_private_key_path }}
+          echo 2
           echo ${{ env.TF_VAR_private_key_content }} > ${{ env.TF_VAR_private_key_path }}
+          echo 3
           cat ${{ env.TF_VAR_private_key_path }}
 #      - name: Terraform init
 #        run: |
