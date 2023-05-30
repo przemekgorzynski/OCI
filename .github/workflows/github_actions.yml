@@ -52,12 +52,11 @@ jobs:
           uses: actions/checkout@v3
         - name: Terraform Installation
           uses: hashicorp/setup-terraform@v2
-        - name: Creare ~/.oci/config file
+        - shell: bash
           env:
             user_tmp: ${{ secrets.OCI_CLI_USER }}
           run: |
-            echo $user_tmp
-            echo $user_tmp
+            echo $user_tmp | base64 --decode
 #            mkdir ~/.oci
 #            cat > ~/.oci/config << EOF
 #            [DEFAULT]
