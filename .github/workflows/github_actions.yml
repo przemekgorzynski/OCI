@@ -16,7 +16,6 @@ env:
     terraform_path: ./pihole
     test: false
 
-
 jobs:
     Validation:
       runs-on: ubuntu-latest
