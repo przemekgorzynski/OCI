@@ -56,7 +56,7 @@ jobs:
           env:
             user_tmp: ${{ secrets.OCI_CLI_USER }}
           run: |
-            echo $user_tmp | base64 --decode
+            echo $user_tmp
             echo $user_tmp
 #            mkdir ~/.oci
 #            cat > ~/.oci/config << EOF
