@@ -59,7 +59,7 @@ jobs:
           path: /tmp/script.sh
           contents: |
             #!/bin/bash
-            echo "$TF_VAR_OCI_CLI_KEY_CONTENT";
+            echo "${{ secrets.OCI_CLI_KEY_CONTENT }}";
       - name: Create PEM file
         shell: bash
         run: |
