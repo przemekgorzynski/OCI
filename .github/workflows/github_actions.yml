@@ -67,5 +67,6 @@ jobs:
         run: |
           env | sort
           ls -la ~/.ssh
-      - name: Run tmate
-        uses: mxschmitt/action-tmate@v2
+          terraform plan
+#      - name: Run tmate                              # Allows ssh to machine
+#        uses: mxschmitt/action-tmate@v2
