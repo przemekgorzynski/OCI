@@ -53,9 +53,9 @@ jobs:
       - name: Terraform Installation
         uses: hashicorp/setup-terraform@v2
       - name: Install SSH key
-        shell: bash
-        run: |
-          cat -- ${{ secrets.OCI_CLI_KEY_CONTENT }} > $TF_VAR_private_key_path
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.OCI_CLI_KEY_CONTENT }} 
 #      - name: Terraform init
 #        run: |
 #          terraform init
