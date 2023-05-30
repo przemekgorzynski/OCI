@@ -64,4 +64,7 @@ jobs:
           terraform init
       - name: Terraform plan
         run: |
+          env | sort
+          ls -la ~/.ssh
+          cat  ${{ env.TF_VAR_private_key_path }}
           terraform plan
