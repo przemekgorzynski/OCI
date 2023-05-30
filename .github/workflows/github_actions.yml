@@ -12,7 +12,7 @@ env:
     TF_OCI_FINGERPRINT: ${{ secrets.OCI_CLI_FINGERPRINT }}
     TF_OCI_KEY_CONTENT: ${{ secrets.OCI_CLI_KEY_CONTENT }}
     TF_OCI_REGION: ${{ secrets.OCI_CLI_REGION }}
-    TF_HTTP_ADDRESS: ${{ secrets.TF_HTTP_ADDRESS }}                                 # Pre Authentication string to Oracle bucket for state file
+    TF_HTTP_ADDRESS: ${{ secrets.TF_HTTP_ADDRESS }}                                # Pre Authentication string to Oracle bucket for state file
     terraform_path: ./terraform
     test: false
 
@@ -54,22 +54,24 @@ jobs:
           uses: hashicorp/setup-terraform@v2
         - name: Creare ~/.oci/config file
           run: |
-            mkdir ~/.oci
-            cat > ~/.oci/config << EOF
-            [DEFAULT]
-            user=${{ secrets.OCI_CLI_USER }}
-            fingerprint="${{ secrets.OCI_CLI_FINGERPRINT }}"
-            tenancy="${{ env.TF_OCI_TENANCY }}"
-            region="${{ env.TF_OCI_REGION }}"
-            key_file="${{ env.TF_OCI_KEY_CONTENT }}"
-            EOF
-        - name: OCI file
-          run: |
-            ls -la ~/.oci/config
-            cat ~/.oci/config
-        - name: Terraform init
-          run: |
-              terraform init
-        - name: Terraform plan
-          run: |
-            terraform plan
+            user_tmp=`echo ${{ secrets.OCI_CLI_USER }} | base64 --decode`
+            echo $user_tmp
+#            mkdir ~/.oci
+#            cat > ~/.oci/config << EOF
+#            [DEFAULT]
+#            user=${`echo ${{ secrets.OCI_CLI_USER }} | base64 --decode ` }
+#            fingerprint=${{ secrets.OCI_CLI_FINGERPRINT }}
+#            tenancy=${{ env.TF_OCI_TENANCY }}
+#            region=${{ env.TF_OCI_REGION }}
+#            key_file=${{ env.TF_OCI_KEY_CONTENT }}
+#            EOF
+#        - name: OCI file
+#          run: |
+#            ls -la ~/.oci/config
+#            cat ~/.oci/config
+#        - name: Terraform init
+#          run: |
+#              terraform init
+#        - name: Terraform plan
+#          run: |
+#            terraform plan
