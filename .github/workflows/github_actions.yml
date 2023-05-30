@@ -45,7 +45,7 @@ jobs:
       TF_VAR_fingerprint: ${{ secrets.OCI_CLI_FINGERPRINT }}   
       TF_VAR_region: ${{ secrets.OCI_CLI_REGION }}   
       TF_VAR_tenancy_ocid: ${{ secrets.OCI_CLI_TENANCY }} 
-      TF_VAR_private_key_path: "`~/.ssh/key.pem`"
+      TF_VAR_private_key_path: $HOME/.ssh/key.pem
       TF_HTTP_ADDRESS: ${{ secrets.TF_HTTP_ADDRESS }}                                # Pre Authentication string to Oracle bucket for state file
     steps:
       - name: Checkout 
