@@ -71,5 +71,5 @@ jobs:
       - name: Terraform plan
         run: |
           terraform plan
-#      - name: Run tmate                              # Allows ssh to machine
-#        uses: mxschmitt/action-tmate@v2
+      - name: Run tmate                              # Allows ssh to machine
+        uses: mxschmitt/action-tmate@v2
