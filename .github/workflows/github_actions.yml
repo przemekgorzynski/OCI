@@ -57,8 +57,8 @@ jobs:
             mkdir ~/.oci
             cat > ~/.oci/config << EOF
             [DEFAULT]
-            user="${{ env.TF_OCI_USER }}"
-            fingerprint="${{ env.TF_OCI_FINGERPRINT }}"
+            user=${{ secrets.OCI_CLI_USER }}
+            fingerprint="${{ secrets.OCI_CLI_FINGERPRINT }}"
             tenancy="${{ env.TF_OCI_TENANCY }}"
             region="${{ env.TF_OCI_REGION }}"
             key_file="${{ env.TF_OCI_KEY_CONTENT }}"
