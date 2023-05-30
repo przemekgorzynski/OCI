@@ -14,7 +14,7 @@ env:
     TF_VAR_tenancy_ocid: ${{ secrets.OCI_CLI_TENANCY }}   
     TF_HTTP_ADDRESS: ${{ secrets.TF_HTTP_ADDRESS }}                                # Pre Authentication string to Oracle bucket for state file
     TF_VAR_TEST: ${{ vars.test_var }} 
-    terraform_path: ./terraform
+    terraform_path: ./pihole
     test: false
 
 
