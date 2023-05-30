@@ -53,18 +53,15 @@ jobs:
       - name: Terraform Installation
         uses: hashicorp/setup-terraform@v2
       - name: Install SSH key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.OCI_CLI_KEY_CONTENT }} 
-          name: key.pem
-          known_hosts: unnecessary
-          if_key_exists: replace
-      - name: Terraform init
+        shell: bash
         run: |
-          terraform init
-      - name: Terraform plan
-        run: |
-          env | sort
-          ls -la ~/.ssh
+          cat ${{ secrets.OCI_CLI_KEY_CONTENT }} > $TF_VAR_private_key_path
+#      - name: Terraform init
+#        run: |
+#          terraform init
+#      - name: Terraform plan
+#        run: |
+#          env | sort
+#          ls -la ~/.ssh
       - name: Run tmate                              # Allows ssh to machine
         uses: mxschmitt/action-tmate@v2
