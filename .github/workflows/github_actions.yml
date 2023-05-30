@@ -55,12 +55,14 @@ jobs:
             region_tmp: ${{ secrets.OCI_CLI_REGION }}
             key_content_tmp: ${{ secrets.OCI_CLI_KEY_CONTENT }}
           run: |
+            mkdir ~/.oci
+            echo $key_content_tmp > ~/.oci/key.pem
             echo $user_tmp | base64 --decode
             echo $fingerprint_tmp | base64 --decode
             echo $tenancy_tmp | base64 --decode
             echo $region_tmp | base64 --decode
-            echo $key_content_tmp | base64 --decode
-#            mkdir ~/.oci
+            ls -la ~/.oci/key.pem
+            cat ~/.oci/key.pem        
 #            cat > ~/.oci/config << EOF
 #            [DEFAULT]
 #            user=${`echo ${{ secrets.OCI_CLI_USER }} | base64 --decode ` }
