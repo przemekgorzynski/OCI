@@ -47,15 +47,12 @@ jobs:
       TF_VAR_tenancy_ocid: ${{ secrets.OCI_CLI_TENANCY }} 
       TF_VAR_private_key_path: /home/runner/.ssh/key.pem
       TF_HTTP_ADDRESS: ${{ secrets.TF_HTTP_ADDRESS }}                                # Pre Authentication string to Oracle bucket for state file
+      TF_VAR_OCI_CLI_KEY_CONTENT: ${{ secrets.OCI_CLI_KEY_CONTENT }} 
     steps:
       - name: Checkout 
         uses: actions/checkout@v3
       - name: Terraform Installation
         uses: hashicorp/setup-terraform@v2
-      - name: Install SSH key
-        uses: webfactory/ssh-agent@v0.7.0
-        with:
-          ssh-private-key: ${{ secrets.OCI_CLI_KEY_CONTENT }} 
 #      - name: Terraform init
 #        run: |
 #          terraform init
