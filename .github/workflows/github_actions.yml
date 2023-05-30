@@ -20,7 +20,7 @@ env:
 jobs:
     Validation:
       runs-on: ubuntu-latest
-      if: ${{ vars.test }} == true
+      if: ${{ fromJSON(env.test) }}
       defaults:
         run:
           shell: bash
