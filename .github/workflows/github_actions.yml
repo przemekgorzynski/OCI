@@ -7,11 +7,11 @@ on:
     workflow_dispatch:                                              # Allows you to run this workflow manually from the Actions tab
 
 env:
-    OCI_CLI_USER: ${{ secrets.OCI_CLI_USER }}
-    OCI_CLI_TENANCY: ${{ secrets.OCI_CLI_TENANCY }}
-    OCI_CLI_FINGERPRINT: ${{ secrets.OCI_CLI_FINGERPRINT }}
-    OCI_CLI_KEY_CONTENT: ${{ secrets.OCI_CLI_KEY_CONTENT }}
-    OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
+    TF_OCI_USER: ${{ secrets.OCI_CLI_USER }}
+    TF_OCI_TENANCY: ${{ secrets.OCI_CLI_TENANCY }}
+    TF_OCI_FINGERPRINT: ${{ secrets.OCI_CLI_FINGERPRINT }}
+    TF_OCI_KEY_CONTENT: ${{ secrets.OCI_CLI_KEY_CONTENT }}
+    TF_OCI_REGION: ${{ secrets.OCI_CLI_REGION }}
     TF_HTTP_ADDRESS: ${{ secrets.TF_HTTP_ADDRESS }}                                 # Pre Authentication string to Oracle bucket for state file
     terraform_path: ./terraform
 
@@ -51,10 +51,18 @@ jobs:
           uses: actions/checkout@v3
         - name: Terraform Installation
           uses: hashicorp/setup-terraform@v2
+        - name: Creare ~/.oci/config file
+          run: |
+            mkdir ~/.oci
+            cat > ~/.oci/config << EOF
+            [DEFAULT]
+            user=${{ env.TF_OCI_USER }}
+            fingerprint=${{ env.TF_OCI_FINGERPRINT }}
+            tenancy=${{ env.TF_OCI_TENANCY }}
+            region=${{ env.TF_OCI_REGION }}
+            key_file=${{ env.TF_OCI_KEY_CONTENT }}
+            EOF
         - name: Terraform init
           run: |
-            env | sort
-            terraform init
-        - name: Terraform plan
-          run: |
-            terraform plan
+            ls -la ~/.oci/config
+            cat ~/.oci/config

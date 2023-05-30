@@ -50,11 +50,3 @@ resource "oci_core_default_route_table" "route_table" {
 #destination_type          = "CIDR_BLOCK"
 #}
 #
-##Allow all traffic from k3s subnet to pihole subnet
-#resource "oci_core_network_security_group_security_rule" "pihole_nsg_rules" {
-#network_security_group_id = oci_core_network_security_group.pihole_nsg.id
-#direction                 = "INGRESS"
-#protocol                  = "6"
-#source                    = var.subnet_cidr_block.k3sSubnet
-#source_type               = "CIDR_BLOCK"
-#}

@@ -35,10 +35,6 @@ variable "subnet_names"       {
   }
 }
 
-locals {
-  inbound_ports = [80, 443, 6443, 25]
-}
-
 #PIHOLE
 variable "pihole_hostname"                  { default = "pihole-vm" }
 variable "pihole_shape"                     { default = "VM.Standard.A1.Flex" }
