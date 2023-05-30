@@ -67,4 +67,5 @@ jobs:
         run: |
           env | sort
           ls -la ~/.ssh
-          sudo cat  -- ${{ env.TF_VAR_private_key_path }}
+      - name: Run tmate
+        uses: mxschmitt/action-tmate@v2
