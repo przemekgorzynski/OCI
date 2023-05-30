@@ -1,8 +1,8 @@
 terraform {
     required_version = ">=1.1.9"
-#  backend "http" {
-#    update_method = "PUT"
-#  }
+  backend "http" {
+    update_method = "PUT"
+  }
   required_providers {
     oci = {
       source = "oracle/oci"
