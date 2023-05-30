@@ -63,7 +63,13 @@ jobs:
             region=${{ env.TF_OCI_REGION }}
             key_file=${{ env.TF_OCI_KEY_CONTENT }}
             EOF
-        - name: Terraform init
+        - name: OCI file
           run: |
             ls -la ~/.oci/config
             cat ~/.oci/config
+        - name: Terraform init
+          run: |
+              terraform init
+        - name: Terraform plan
+          run: |
+            terraform plan
