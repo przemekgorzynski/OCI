@@ -1,3 +1,9 @@
+#CONECTION
+variable "tenancy_ocid"                     {}
+variable "user_ocid"                        {}
+variable "fingerprint"                      {}
+variable "private_key_path"                 {}
+
 #GENERAL
 variable "compartment_id"                   { default = "ocid1.tenancy.oc1..aaaaaaaai6pwlqfxlt2bw7jw5uti2hf2jnwmaxr6wdyrap3q7pqxbjn4bvwa" }
 variable "region"                           { default = "eu-frankfurt-1" }
@@ -9,7 +15,6 @@ variable "fault_domain2"                    { default = "FAULT-DOMAIN-2" }
 variable "fault_domain3"                    { default = "FAULT-DOMAIN-3" }
 variable "local_public_key_path"            { default = "~/.ssh/id_rsa.pub" }
 variable "volume_device"                    { default = "/dev/oracleoci/oraclevdb" }
-
 
 #NETWORKING
 variable "vcn_name"                         { default = "Oracle-vcn" }
