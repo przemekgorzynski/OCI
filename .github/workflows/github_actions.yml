@@ -58,10 +58,11 @@ jobs:
         run: |
            env | sort
            mkdir ~/.oci
-           ls -la ~/.oci
-      - name: Terraform init
-        run: |
-            terraform init
-      - name: Terraform plan
-        run: |
-          terraform plan
+           touch $TF_VAR_private_key_path
+           ls -la $TF_VAR_private_key_path
+#      - name: Terraform init
+#        run: |
+#            terraform init
+#      - name: Terraform plan
+#        run: |
+#          terraform plan
