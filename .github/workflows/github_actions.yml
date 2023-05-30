@@ -57,12 +57,9 @@ jobs:
         name: Prepare key file
         run: |
            env | sort
-           echo $TF_VAR_private_key_content
-#        - name: OCI file
-#          run: |
-#            ls -la ~/.oci
-#            cat ~/.oci/config
-#            cat ~/.oci/key.pem
+           mkdir ~/.oci
+           echo $TF_VAR_private_key_content > ~/.oci/key.pem
+           cat ~/.oci/key.pem
 #        - name: Terraform init
 #          run: |
 #              terraform init
