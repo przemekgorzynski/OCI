@@ -8,7 +8,7 @@ on:
 
 env:
   terraform_path: ./pihole
-  test: true
+  test: 'true'
 
 jobs:
   Validation:
