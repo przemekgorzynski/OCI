@@ -7,11 +7,6 @@ on:
     workflow_dispatch:                                              # Allows you to run this workflow manually from the Actions tab
 
 env:
-    TF_OCI_USER: ${{ secrets.OCI_CLI_USER }}
-    TF_OCI_TENANCY: ${{ secrets.OCI_CLI_TENANCY }}
-    TF_OCI_FINGERPRINT: ${{ secrets.OCI_CLI_FINGERPRINT }}
-    TF_OCI_KEY_CONTENT: ${{ secrets.OCI_CLI_KEY_CONTENT }}
-    TF_OCI_REGION: ${{ secrets.OCI_CLI_REGION }}
     TF_HTTP_ADDRESS: ${{ secrets.TF_HTTP_ADDRESS }}                                # Pre Authentication string to Oracle bucket for state file
     terraform_path: ./terraform
     test: false
@@ -55,8 +50,16 @@ jobs:
         - shell: bash
           env:
             user_tmp: ${{ secrets.OCI_CLI_USER }}
+            fingerprint_tmp: ${{ secrets.OCI_CLI_FINGERPRINT }}
+            tenancy_tmp: ${{ secrets.OCI_CLI_TENANCY }}
+            region_tmp: ${{ secrets.OCI_CLI_REGION }}
+            key_content_tmp: ${{ secrets.OCI_CLI_KEY_CONTENT }}
           run: |
             echo $user_tmp | base64 --decode
+            echo $fingerprint_tmp | base64 --decode
+            echo $tenancy_tmp | base64 --decode
+            echo $region_tmp | base64 --decode
+            echo $key_content_tmp | base64 --decode
 #            mkdir ~/.oci
 #            cat > ~/.oci/config << EOF
 #            [DEFAULT]
