@@ -3,7 +3,6 @@ variable "tenancy_ocid"                     {}
 variable "user_ocid"                        {}
 variable "fingerprint"                      {}
 variable "private_key_path"                 { default = "/home/runner/.ssh/key.pem" }
-variable "HTTP_ADDRESS"                     {}
 
 #GENERAL
 variable "compartment_id"                   { default = "ocid1.tenancy.oc1..aaaaaaaai6pwlqfxlt2bw7jw5uti2hf2jnwmaxr6wdyrap3q7pqxbjn4bvwa" }
