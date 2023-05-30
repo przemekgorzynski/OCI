@@ -58,7 +58,7 @@ jobs:
         run: |
            env | sort
            mkdir ~/.oci
-           echo $TF_VAR_private_key_content >$TF_VAR_private_key_path
+           echo $TF_VAR_private_key_content > $TF_VAR_private_key_path
            ls -la $TF_VAR_private_key_path
       - name: Terraform init
         run: |
