@@ -4,7 +4,7 @@ run-name: Commit message "${{ github.event.head_commit.message }}" by @${{ githu
 on:
     push:
         branches: [ "master" ]
-    workflow_dispatch:              # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:                                              # Allows you to run this workflow manually from the Actions tab
 
 env:
     OCI_CLI_USER: ${{ secrets.OCI_CLI_USER }}
@@ -12,8 +12,7 @@ env:
     OCI_CLI_FINGERPRINT: ${{ secrets.OCI_CLI_FINGERPRINT }}
     OCI_CLI_KEY_CONTENT: ${{ secrets.OCI_CLI_KEY_CONTENT }}
     OCI_CLI_REGION: ${{ secrets.OCI_CLI_REGION }}
-    OCI_PAR: ${{ secrets.OCI_PAR }}
-
+    OCI_PAR: ${{ secrets.OCI_PAR }}                                 # Pre Authentication string to Oracle bucket for state file
     terraform_path: ./terraform
 
 
@@ -49,3 +48,8 @@ jobs:
       steps:
         - name: Checkout 
           uses: actions/checkout@v2
+        - name: Create Plan Run
+          uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.0
+          id: plan-run
+          with:
+            plan_only: true
