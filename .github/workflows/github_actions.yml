@@ -1,0 +1,43 @@
+name: OCI
+run-name: Commit message "${{ github.event.head_commit.message }}" by @${{ github.actor }}
+
+on:
+  push:
+    branches: [ "master" ]
+  workflow_dispatch:              # Allows you to run this workflow manually from the Actions tab
+
+env:
+  terraform_path: ./terraform
+
+jobs:
+  Validation:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ env.terraform_path }}
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v2
+      - name: Terraform Installation
+        uses: hashicorp/setup-terraform@v2
+      - name: Terraform Validate
+        run: |
+          terraform init -backend=false
+          terraform validate
+      - name: Tfsec scan
+        uses: triat/terraform-security-scan@v3.0.3
+      - name: Checkov scan
+        run: |
+          pip3 install checkov
+          checkov -d . --framework terraform --download-external-modules true
+  Plan:
+    needs: Validation
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ env.terraform_path }}
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v2
