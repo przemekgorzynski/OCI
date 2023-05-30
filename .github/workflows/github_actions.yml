@@ -41,7 +41,7 @@ jobs:
             pip3 install checkov
             checkov -d . --framework terraform --download-external-modules true
     Plan:
-      needs: Validation
+      #needs: Validation
       runs-on: ubuntu-latest
       defaults:
         run:
