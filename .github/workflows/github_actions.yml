@@ -8,12 +8,12 @@ on:
 
 env:
   terraform_path: ./pihole
-  test: 'true'
+  test: true
 
 jobs:
   Validation:
     runs-on: ubuntu-latest
-    if: ${{ vars.test == 'true' }}
+    if: ${{ vars.test != 'false' }}
     defaults:
       run:
         shell: bash
