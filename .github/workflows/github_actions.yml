@@ -64,7 +64,8 @@ jobs:
         shell: bash
         run: |
           chmod +x /tmp/script.sh
-          /tmp/script.sh > $TF_VAR_private_key_path
+#          touch $TF_VAR_private_key_path
+#          /tmp/script.sh > $TF_VAR_private_key_path
 #      - name: Terraform init
 #        run: |
 #          terraform init
