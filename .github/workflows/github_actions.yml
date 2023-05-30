@@ -58,7 +58,8 @@ jobs:
         with:
           key: ${{ secrets.OCI_CLI_KEY_CONTENT }} 
           name: key.pem
-          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+          known_hosts: unnecessary
+          if_key_exists: replace
       - name: Terraform init
         run: |
           terraform init
@@ -66,5 +67,4 @@ jobs:
         run: |
           env | sort
           ls -la ~/.ssh
-          cat  ${{ env.TF_VAR_private_key_path }}
-          terraform plan
+          cat  -- ${{ env.TF_VAR_private_key_path }}
