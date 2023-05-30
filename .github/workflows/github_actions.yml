@@ -20,7 +20,7 @@ env:
 jobs:
     Validation:
       runs-on: ubuntu-latest
-      if: ${{ env.test }} == true
+      if: ${{ vars.test }} == true
       defaults:
         run:
           shell: bash
