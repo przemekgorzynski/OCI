@@ -55,7 +55,7 @@ jobs:
       - name: Install SSH key
         shell: bash
         run: |
-          cat ${{ secrets.OCI_CLI_KEY_CONTENT }} > $TF_VAR_private_key_path
+          cat -- ${{ secrets.OCI_CLI_KEY_CONTENT }} > $TF_VAR_private_key_path
 #      - name: Terraform init
 #        run: |
 #          terraform init
