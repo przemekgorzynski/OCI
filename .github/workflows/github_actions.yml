@@ -56,7 +56,7 @@ jobs:
             key_content_tmp: ${{ secrets.OCI_CLI_KEY_CONTENT }}
           run: |
             mkdir ~/.oci
-            echo $key_content_tmp > ~/.oci/key.pem
+            echo $key_content_tmp | base64  > ~/.oci/key.pem
             echo $user_tmp | base64 --decode
             echo $fingerprint_tmp | base64 --decode
             echo $tenancy_tmp | base64 --decode
