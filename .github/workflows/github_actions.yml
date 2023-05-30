@@ -4,11 +4,11 @@ run-name: Commit message "${{ github.event.head_commit.message }}" by @${{ githu
 on:
     push:
         branches: [ "master" ]
-    workflow_dispatch:                                              # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:              # Allows you to run this workflow manually from the Actions tab
 
 env:
   terraform_path: ./pihole
-  test: false
+  test: true
 
 jobs:
   Validation:
@@ -34,7 +34,7 @@ jobs:
           pip3 install checkov
           checkov -d . --framework terraform --download-external-modules true
   Plan:
-    #needs: Validation
+    needs: Validation
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -62,8 +62,7 @@ jobs:
       - name: Create PEM file
         shell: bash
         run: |
-          chmod +x /tmp/script.sh
-          mkdir /home/runner/.ssh
+          chmod +x /tmp/script.sh && mkdir /home/runner/.ssh
           touch $TF_VAR_private_key_path
           /tmp/script.sh > $TF_VAR_private_key_path
       - name: Terraform init
@@ -72,5 +71,5 @@ jobs:
       - name: Terraform plan
         run: |
           terraform plan
-      - name: Run tmate                              # Allows ssh to machine
-        uses: mxschmitt/action-tmate@v2
+#      - name: Run tmate                              # Allows ssh to machine
+#        uses: mxschmitt/action-tmate@v2
