@@ -54,3 +54,6 @@ jobs:
           run: |
             env | sort
             terraform init
+        - name: Terraform init
+          run: |
+            terraform plan
