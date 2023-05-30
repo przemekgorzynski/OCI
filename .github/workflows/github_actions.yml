@@ -48,8 +48,8 @@ jobs:
       steps:
         - name: Checkout 
           uses: actions/checkout@v2
-        - name: Create Plan Run
-          uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.0
-          id: plan-run
-          with:
-            plan_only: true
+        - name: Terraform Installation
+          uses: hashicorp/setup-terraform@v2
+        - name: Terraform init
+          run: |
+            terraform init
