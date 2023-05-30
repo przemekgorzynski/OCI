@@ -47,39 +47,41 @@ jobs:
           uses: actions/checkout@v3
         - name: Terraform Installation
           uses: hashicorp/setup-terraform@v2
-        - name: Decode secret
-          uses: davidSchuppa/base64Secret-toFile-action@v1
+        - uses: JakubMosakowski/secret-into-file-action@v1.0.0
           with:
-              secret: ${{ secrets.OCI_CLI_KEY_CONTENT }}
-              filename: myFile.txt
-              destination-path: ~/dirForMyFile
-        - shell: bash
-          env:
-            user_tmp: ${{ secrets.OCI_CLI_USER }}
-            fingerprint_tmp: ${{ secrets.OCI_CLI_FINGERPRINT }}
-            tenancy_tmp: ${{ secrets.OCI_CLI_TENANCY }}
-            region_tmp: ${{ secrets.OCI_CLI_REGION }}
+           secret: ${{ secrets.OCI_CLI_KEY_CONTENT }}
+           filename: "~/file.txt"
+        - shell : bash
           run: |
-            cat ~/dirForMyFile
-            mkdir ~/.oci
-            echo $key_content_tmp | base64  > ~/.oci/key.pem
-            user_tmp=`echo $user_tmp | base64 --decode`
-            fingerprint_tmp=`echo $fingerprint_tmp | base64 --decode`
-            tenancy_tmp=`echo $tenancy_tmp | base64 --decode`
-            region_tmp=`echo $region_tmp | base64 --decode`
-            cat > ~/.oci/config << EOF
-            [DEFAULT]
-            user=$user_tmp
-            fingerprint=$fingerprint_tmp
-            tenancy=$tenancy_tmp
-            region=$region_tmp
-            key_file=~/.oci/key.pem
-            EOF
-        - name: OCI file
-          run: |
-            ls -la ~/.oci
-            cat ~/.oci/config
-            cat ~/.oci/key.pem
+            cat ~/file.txt
+
+#        - shell: bash
+#          env:
+#            user_tmp: ${{ secrets.OCI_CLI_USER }}
+#            fingerprint_tmp: ${{ secrets.OCI_CLI_FINGERPRINT }}
+#            tenancy_tmp: ${{ secrets.OCI_CLI_TENANCY }}
+#            region_tmp: ${{ secrets.OCI_CLI_REGION }}
+#            key_content_tmp: ${{ secrets.OCI_CLI_KEY_CONTENT }}
+#          run: |
+#            mkdir ~/.oci
+#            echo $key_content_tmp | base64  > ~/.oci/key.pem
+#            user_tmp=`echo $user_tmp | base64 --decode`
+#            fingerprint_tmp=`echo $fingerprint_tmp | base64 --decode`
+#            tenancy_tmp=`echo $tenancy_tmp | base64 --decode`
+#            region_tmp=`echo $region_tmp | base64 --decode`
+#            cat > ~/.oci/config << EOF
+#            [DEFAULT]
+#            user=$user_tmp
+#            fingerprint=$fingerprint_tmp
+#            tenancy=$tenancy_tmp
+#            region=$region_tmp
+#            key_file=~/.oci/key.pem
+#            EOF
+#        - name: OCI file
+#          run: |
+#            ls -la ~/.oci
+#            cat ~/.oci/config
+#            cat ~/.oci/key.pem
 #        - name: Terraform init
 #          run: |
 #              terraform init
