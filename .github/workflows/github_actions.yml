@@ -56,8 +56,8 @@ jobs:
       - name: Prepare key file
         run: |
           mkdir ~/.oci
-          touch $TF_VAR_private_key_path
-          ls -la $TF_VAR_private_key_path
+          touch ~/.oci/test
+          ls -la ~/.oci
 #      - name: Terraform init
 #        run: |
 #            terraform init
