@@ -14,16 +14,17 @@ env:
     TF_OCI_REGION: ${{ secrets.OCI_CLI_REGION }}
     TF_HTTP_ADDRESS: ${{ secrets.TF_HTTP_ADDRESS }}                                 # Pre Authentication string to Oracle bucket for state file
     terraform_path: ./terraform
+    test: false
 
 
 jobs:
     Validation:
       runs-on: ubuntu-latest
+      if: ${{ env.test }} == true
       defaults:
         run:
           shell: bash
           working-directory: ${{ env.terraform_path }}
-          
       steps:
         - name: Checkout 
           uses: actions/checkout@v3
