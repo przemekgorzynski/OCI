@@ -57,6 +57,7 @@ jobs:
         with:
           key: ${{ secrets.OCI_CLI_KEY_CONTENT }} 
           name: key.pem
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
       - shell: bash
         name: Prepare key file
         run: |
