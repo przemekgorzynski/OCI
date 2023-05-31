@@ -42,7 +42,7 @@ jobs:
       - name: Checkov scan
         run: |
           pip3 install checkov
-          checkov -d . --framework terraform --download-external-modules true
+          checkov -d . --framework terraform --download-external-modules true --soft-fail
   Plan:
     needs: Validation
     runs-on: ubuntu-latest

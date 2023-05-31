@@ -24,29 +24,28 @@ resource "oci_core_default_route_table" "route_table" {
         description             = "Route table to allow Internet access"
     }
 }
-#
-#module "pihole_subnet" {
-#    source                      = "./modules/subnets"
-#    compartment_id              = var.compartment_id
-#    subnet_cidr_block           = var.subnet_cidr_block.piholeSubnet
-#    oci_core_vcn                = oci_core_vcn.vcn.id
-#    subnet_name                 = var.subnet_names.piholeSubnet
-#    dns_label                   = "pihole"
-#}
-#
-#resource "oci_core_network_security_group" "pihole_nsg" {
-#    #Required
-#    compartment_id = var.compartment_id
-#    vcn_id = oci_core_vcn.vcn.id
-#    display_name = "pihole_subnet_nsg"
-#}
-#
-#
-#resource "oci_core_network_security_group_security_rule" "pihole_nsg_egress" {
-#network_security_group_id = oci_core_network_security_group.pihole_nsg.id
-#direction                 = "EGRESS"
-#protocol                  = "6"
-#destination               = "0.0.0.0/0"
-#destination_type          = "CIDR_BLOCK"
-#}
-#
+
+module "pihole_subnet" {
+    source                      = "../modules/subnet"
+    compartment_id              = var.compartment_id
+    subnet_cidr_block           = var.subnet_cidr_block.piholeSubnet
+    oci_core_vcn                = oci_core_vcn.vcn.id
+    subnet_name                 = var.subnet_names.piholeSubnet
+    dns_label                   = "pihole"
+}
+
+resource "oci_core_network_security_group" "pihole_nsg" {
+    #Required
+    compartment_id = var.compartment_id
+    vcn_id = oci_core_vcn.vcn.id
+    display_name = "pihole_subnet_nsg"
+}
+
+
+resource "oci_core_network_security_group_security_rule" "pihole_nsg_egress" {
+network_security_group_id = oci_core_network_security_group.pihole_nsg.id
+direction                 = "EGRESS"
+protocol                  = "6"
+destination               = "0.0.0.0/0"
+destination_type          = "CIDR_BLOCK"
+}
