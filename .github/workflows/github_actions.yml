@@ -2,9 +2,17 @@ name: OCI
 run-name: Commit message "${{ github.event.head_commit.message }}" by @${{ github.actor }}
 
 on:
-    push:
-        branches: [ "master" ]
-    workflow_dispatch:              # Allows you to run this workflow manually from the Actions tab
+  push:
+    branches:
+      - master
+      - main
+      - devops/*
+  pull_request:
+    types:
+      - opened
+      - review_requested
+      - closed
+  workflow_dispatch:              # Allows you to run this workflow manually from the Actions tab
 
 env:
   terraform_path: ./pihole
