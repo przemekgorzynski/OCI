@@ -8,7 +8,7 @@ on:
       - main
       - devops/*
     paths-ignore:
-      - ../../README.md
+      - ${{ github.workspace }}/README.md"
   pull_request:
     types:
       - opened
