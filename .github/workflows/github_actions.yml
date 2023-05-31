@@ -73,3 +73,15 @@ jobs:
           terraform plan
 #      - name: Run tmate                              # Allows ssh to machine
 #        uses: mxschmitt/action-tmate@v2
+  Apply:
+    runs-on: ubuntu-latest
+    needs: Plan
+    environment: Pihole
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ env.terraform_path }}
+    steps:
+      - name: echo
+        run: |
+          echo 1
