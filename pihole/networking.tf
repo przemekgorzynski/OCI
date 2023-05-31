@@ -26,7 +26,7 @@ resource "oci_core_default_route_table" "route_table" {
 }
 
 module "pihole_subnet" {
-    source                      = "./modules/subnets"
+    source                      = "../modules/subnet"
     compartment_id              = var.compartment_id
     subnet_cidr_block           = var.subnet_cidr_block.piholeSubnet
     oci_core_vcn                = oci_core_vcn.vcn.id
