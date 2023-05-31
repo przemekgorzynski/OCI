@@ -1,5 +1,5 @@
 name: Pihole
-run-name: Commit message "${{ github.event.head_commit.message }}" by @${{ github.actor }}
+run-name: Commit message "${{ github.event.head_commit.message }}" on branch ${{ github.base_ref }} by @${{ github.actor }}
 
 on:
   push:
