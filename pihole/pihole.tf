@@ -1,21 +1,21 @@
-#module "pihole_compute"{
-#    source                  = "./modules/compute"
-#    compartment_id          = var.compartment_id
-#    fault_domain            = var.fault_domain1
-#    shape                   = var.pihole_shape
-#    hostname                = var.pihole_hostname
-#    local_public_key_path   = var.local_public_key_path
-#    memory                  = var.pihole_memory
-#    ocpus                   = var.pihole_ocpus
-#    private_ip              = var.pihole_private_ip
-#    vnic_name               = "pihole_vnic"
-#    subnet                  = module.pihole_subnet.subnet_data.id
-#    dns_label               = "pihole-vm"
-#    image_id                = var.pihole_image_id
-#    user_data_base64        = filebase64("${path.module}/cloud-init.yaml")
-#    nsg_ids                 = [oci_core_network_security_group.pihole_nsg.id]
-#}
-#
+module "pihole_compute"{
+    source                  = "../modules/compute"
+    compartment_id          = var.compartment_id
+    fault_domain            = var.fault_domain1
+    shape                   = var.pihole_shape
+    hostname                = var.pihole_hostname
+    local_public_key_path   = var.local_public_key_path
+    memory                  = var.pihole_memory
+    ocpus                   = var.pihole_ocpus
+    private_ip              = var.pihole_private_ip
+    vnic_name               = "pihole_vnic"
+    subnet                  = module.pihole_subnet.subnet_data.id
+    dns_label               = "pihole-vm"
+    image_id                = var.pihole_image_id
+    user_data_base64        = filebase64("${path.module}/cloud-init.yaml")
+    nsg_ids                 = [oci_core_network_security_group.pihole_nsg.id]
+}
+
 #resource "oci_core_volume" "pihole_block_volume" {
 #    #Required
 #    compartment_id          = var.compartment_id
