@@ -47,4 +47,4 @@ variable "pihole_memory"                    { default = "4" }
 variable "pihole_ocpus"                     { default = "1" }
 variable "pihole_private_ip"                { default = "10.0.1.100" }
 #https://docs.oracle.com/en-us/iaas/images/ - images #Ubuntu22.04
-variable "pihole_image_id"                  { default = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaazjh7dx5267q4cpzeg7fgxhyluqq42usze6ahijkrs6bnwg2d2mdq" }
+variable "pihole_image_id"                  { default = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaue5jpfecikq4kxt467pm4uumjpacnatgza6bjcpfxuiwxoowt3eq" }
