@@ -16,19 +16,19 @@ module "pihole_compute"{
     nsg_ids                 = [oci_core_network_security_group.pihole_nsg.id]
 }
 
-#resource "oci_core_volume" "pihole_block_volume" {
-#    #Required
-#    compartment_id          = var.compartment_id
-#
-#    #Optional
-#    availability_domain     = var.availability_domain2
-#    display_name            = var.pihole_block_display_name
-#    is_auto_tune_enabled    = true
-#    size_in_gbs             = var.pihole_block_volume_size_in_gbs
-#    vpus_per_gb             = var.pihole_block_volume_vpus_per_gb
-#}
-#
-#
+resource "oci_core_volume" "pihole_block_volume" {
+    #Required
+    compartment_id          = var.compartment_id
+
+    #Optional
+    availability_domain     = var.availability_domain2
+    display_name            = var.pihole_block_display_name
+    is_auto_tune_enabled    = true
+    size_in_gbs             = var.pihole_block_volume_size_in_gbs
+    vpus_per_gb             = var.pihole_block_volume_vpus_per_gb
+}
+
+
 #resource "oci_core_volume_attachment" "pihole_block_volume_attachment" {
 #    attachment_type         = "iscsi"
 #    instance_id             = module.pihole_compute.compute_data.id
