@@ -3,6 +3,8 @@ name: Pihole
 run-name: Commit message "${{ github.event.head_commit.message }}" on branch "${{ github.ref_name }}" by @${{ github.actor }}
 
 on:
+  schedule:
+    - cron: '0 * * * *'
   push:
     branches:
       - master
