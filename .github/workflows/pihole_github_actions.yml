@@ -81,6 +81,7 @@ jobs:
   Apply:
     runs-on: ubuntu-latest
     needs: Plan
+    if: contains(fromJSON('["main", "master"]'), github.ref_name)
     environment: Pihole
     defaults:
       run:
