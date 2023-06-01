@@ -13,7 +13,7 @@ variable "availability_domain3"             { default = "WHWJ:EU-FRANKFURT-1-AD-
 variable "fault_domain1"                    { default = "FAULT-DOMAIN-1" } 
 variable "fault_domain2"                    { default = "FAULT-DOMAIN-2" }
 variable "fault_domain3"                    { default = "FAULT-DOMAIN-3" }
-variable "local_public_key_path"            { default = "~/.ssh/id_rsa.pub" }
+variable "local_public_key_path"            { default = "./id_rsa.pub"}
 variable "volume_device"                    { default = "/dev/oracleoci/oraclevdb" }
 
 #NETWORKING
