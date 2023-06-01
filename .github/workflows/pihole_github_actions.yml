@@ -1,3 +1,4 @@
+---
 name: Pihole
 run-name: Commit message "${{ github.event.head_commit.message }}" on branch "${{ github.ref_name }}" by @${{ github.actor }}
 
@@ -9,11 +10,17 @@ on:
       - devops/*
     paths-ignore:
       - '**/README.md'
-  workflow_dispatch:              # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 env:
   terraform_path: ./pihole
   test: true
+  TF_VAR_user_ocid: ${{ secrets.OCI_CLI_USER }}
+  TF_VAR_fingerprint: ${{ secrets.OCI_CLI_FINGERPRINT }}
+  TF_VAR_region: ${{ secrets.OCI_CLI_REGION }}
+  TF_VAR_tenancy_ocid: ${{ secrets.OCI_CLI_TENANCY }}
+  TF_VAR_private_key_path: "/home/runner/.ssh/key.pem"
+  TF_HTTP_ADDRESS: ${{ secrets.TF_HTTP_ADDRESS }}     # Pre Authentication string to Oracle bucket for state file
 
 jobs:
   Validation:
@@ -24,7 +31,7 @@ jobs:
         shell: bash
         working-directory: ${{ env.terraform_path }}
     steps:
-      - name: Checkout 
+      - name: Checkout
         uses: actions/checkout@v3
       - name: Terraform Installation
         uses: hashicorp/setup-terraform@v2
@@ -45,15 +52,8 @@ jobs:
       run:
         shell: bash
         working-directory: ${{ env.terraform_path }}
-    env:
-      TF_VAR_user_ocid: ${{ secrets.OCI_CLI_USER }}   
-      TF_VAR_fingerprint: ${{ secrets.OCI_CLI_FINGERPRINT }}   
-      TF_VAR_region: ${{ secrets.OCI_CLI_REGION }}   
-      TF_VAR_tenancy_ocid: ${{ secrets.OCI_CLI_TENANCY }} 
-      TF_VAR_private_key_path: "/home/runner/.ssh/key.pem"
-      TF_HTTP_ADDRESS: ${{ secrets.TF_HTTP_ADDRESS }}                                # Pre Authentication string to Oracle bucket for state file
     steps:
-      - name: Checkout 
+      - name: Checkout
         uses: actions/checkout@v3
       - name: Terraform Installation
         uses: hashicorp/setup-terraform@v2
@@ -87,15 +87,8 @@ jobs:
       run:
         shell: bash
         working-directory: ${{ env.terraform_path }}
-    env:
-      TF_VAR_user_ocid: ${{ secrets.OCI_CLI_USER }}   
-      TF_VAR_fingerprint: ${{ secrets.OCI_CLI_FINGERPRINT }}   
-      TF_VAR_region: ${{ secrets.OCI_CLI_REGION }}   
-      TF_VAR_tenancy_ocid: ${{ secrets.OCI_CLI_TENANCY }} 
-      TF_VAR_private_key_path: "/home/runner/.ssh/key.pem"
-      TF_HTTP_ADDRESS: ${{ secrets.TF_HTTP_ADDRESS }}  
     steps:
-      - name: Checkout 
+      - name: Checkout
         uses: actions/checkout@v3
       - name: Terraform Installation
         uses: hashicorp/setup-terraform@v2
