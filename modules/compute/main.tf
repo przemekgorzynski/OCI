@@ -53,5 +53,17 @@ resource "oci_core_instance" "compute" {
             desired_state                   = "ENABLED"
             name                            = "Compute Instance Monitoring"
         }
+        plugins_config {
+            desired_state                   = "ENABLED"
+            name                            = "Management Agent"
+        }
+        plugins_config {
+            desired_state                   = "DISABLED"
+            name                            = "Custom Logs Monitoring"
+        }
+        plugins_config {
+            desired_state                   = "DISABLED"
+            name                            = "Bastion"
+        }
     }
 }
