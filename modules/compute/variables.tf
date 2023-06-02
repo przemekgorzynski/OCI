@@ -2,6 +2,7 @@ variable "compartment_id"           { type = string }
 variable "shape"                    { type = string }
 variable "hostname"                 { type = string }
 variable "fault_domain"             { type = string }
+variable "availability_domain"      { type = string }
 variable "local_public_key_path"    { type = string }
 variable "memory"                   { type = string }
 variable "ocpus"                    { type = string }

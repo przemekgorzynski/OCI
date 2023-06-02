@@ -1,5 +1,5 @@
 resource "oci_core_instance" "compute" {
-    availability_domain                     = "WHWJ:EU-FRANKFURT-1-AD-2"
+    availability_domain                     = var.availability_domain
     compartment_id                          = var.compartment_id
     shape                                   = var.shape
     display_name                            = var.hostname

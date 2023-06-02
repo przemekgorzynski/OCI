@@ -2,6 +2,7 @@ module "pihole_compute"{
     source                  = "../modules/compute"
     compartment_id          = var.compartment_id
     fault_domain            = var.fault_domains[0]
+    availability_domain     = var.availability_domains[0]
     shape                   = var.pihole_shape
     hostname                = var.pihole_hostname
     local_public_key_path   = var.local_public_key_path
