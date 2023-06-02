@@ -60,7 +60,7 @@ jobs:
       - name: Terraform Installation
         uses: hashicorp/setup-terraform@v2
       - name: Prepare PEM File
-        uses: https://github.com/przemekgorzynski/PipelineTemlates/blob/master/GitHub_Actions/OCI/PEM_File_creation.yml
+        uses: przemekgorzynski/PipelineTemlates/blob/master/GitHub_Actions/OCI/PEM_File_creation.yml
         with:
           OCI_CLI_KEY_CONTENT: "${{ secrets.OCI_CLI_KEY_CONTENT }}"
           TF_VAR_private_key_path: $TF_VAR_private_key_path
