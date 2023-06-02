@@ -44,16 +44,16 @@ variable "subnet_names"       {
 
 #PIHOLE
 variable "pihole_hostname"                  { default = "pihole-vm" }
-variable "pihole_shape"                     { default = "VM.Standard.E2.1.Micro" }
-variable "pihole_memory"                    { default = "1" }
+variable "pihole_shape"                     { default = "VM.Standard.A1.Flex" }
+variable "pihole_memory"                    { default = "4" }
 variable "pihole_ocpus"                     { default = "1" }
 variable "pihole_private_ip"                { default = "10.0.1.100" }
-#https://docs.oracle.com/en-us/iaas/images/ - images #Ubuntu22.04 minimal
-variable "pihole_image_id"                  { default = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaa3nhxjajclpi762ne4qskekrlsjuv4jwty3fnjvq5odmavb5e536a" }
+#https://docs.oracle.com/en-us/iaas/images/ - images #Ubuntu22.04
+variable "pihole_image_id"                  { default = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaazjh7dx5267q4cpzeg7fgxhyluqq42usze6ahijkrs6bnwg2d2mdq" }
 variable "pihole_block_display_name"        { default = "pihole-disk" }
 variable "pihole_block_volume_size_in_gbs"  { default = "50" }
 variable "pihole_block_volume_vpus_per_gb"  { default = "10" }
 
 # AMD
 # VM.Standard.E2.1.Micro
-# 1GB 1 CPU
+# 1GB 1CPU
