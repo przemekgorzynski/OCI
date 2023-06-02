@@ -1,17 +1,8 @@
 ---
-name: Pihole
+name: TemplateTest
 run-name: Commit message "${{ github.event.head_commit.message }}" on branch "${{ github.ref_name }}" by @${{ github.actor }}
 
 on:
-  schedule:
-    - cron: '0 * * * *'
-  push:
-    branches:
-      - master
-      - main
-      - devops/*
-    paths-ignore:
-      - '**/README.md'
   workflow_dispatch:
 
 env:
@@ -59,19 +50,26 @@ jobs:
         uses: actions/checkout@v3
       - name: Terraform Installation
         uses: hashicorp/setup-terraform@v2
-      - uses: DamianReeves/write-file-action@master
-        name: Script for key
+      - name: Prepare PEM File
+        uses: przemekgorzynski/PipelineTemlates/blob/master/GitHub_Actions/OCI/PEM_File_creation.yml@master
         with:
-          path: /tmp/script.sh
-          contents: |
-            #!/bin/bash
-            echo "${{ secrets.OCI_CLI_KEY_CONTENT }}";
-      - name: Create PEM file
-        shell: bash
-        run: |
-          chmod +x /tmp/script.sh && mkdir /home/runner/.ssh
-          touch $TF_VAR_private_key_path
-          /tmp/script.sh > $TF_VAR_private_key_path
+          OCI_CLI_KEY_CONTENT: "${{ secrets.OCI_CLI_KEY_CONTENT }}"
+          TF_VAR_private_key_path: ${{ env.TF_VAR_private_key_path }}
+          terraform_path: ${{ env.terraform_path }}
+
+#      - uses: DamianReeves/write-file-action@master
+#        name: Script for key
+#        with:
+#          path: /tmp/script.sh
+#          contents: |
+#            #!/bin/bash
+#            echo "${{ secrets.OCI_CLI_KEY_CONTENT }}";
+#      - name: Create PEM file
+#        shell: bash
+#        run: |
+#          chmod +x /tmp/script.sh && mkdir /home/runner/.ssh
+#          touch $TF_VAR_private_key_path
+#          /tmp/script.sh > $TF_VAR_private_key_path
       - name: Terraform init
         run: |
           terraform init
