@@ -7,12 +7,14 @@ variable "private_key_path"                 { default = "/home/runner/.ssh/key.p
 #GENERAL
 variable "compartment_id"                   { default = "ocid1.tenancy.oc1..aaaaaaaai6pwlqfxlt2bw7jw5uti2hf2jnwmaxr6wdyrap3q7pqxbjn4bvwa" }
 variable "region"                           { default = "eu-frankfurt-1" }
-variable "availability_domain1"             { default = "WHWJ:EU-FRANKFURT-1-AD-1" }
-variable "availability_domain2"             { default = "WHWJ:EU-FRANKFURT-1-AD-2" }
-variable "availability_domain3"             { default = "WHWJ:EU-FRANKFURT-1-AD-3" }
-variable "fault_domain1"                    { default = "FAULT-DOMAIN-1" } 
-variable "fault_domain2"                    { default = "FAULT-DOMAIN-2" }
-variable "fault_domain3"                    { default = "FAULT-DOMAIN-3" }
+variable "availability_domains"             { 
+  type = list  
+  default = ["WHWJ:EU-FRANKFURT-1-AD-1", "WHWJ:EU-FRANKFURT-1-AD-2", "WHWJ:EU-FRANKFURT-1-AD-3"]
+}
+variable "fault_domains"                    { 
+  type = list
+  default = ["FAULT-DOMAIN-1", "FAULT-DOMAIN-2", "FAULT-DOMAIN-3"]
+}  
 variable "local_public_key_path"            { default = "./id_rsa.pub"}
 variable "volume_device"                    { default = "/dev/oracleoci/oraclevdb" }
 
