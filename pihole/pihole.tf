@@ -1,8 +1,8 @@
 module "pihole_compute"{
     source                  = "../modules/compute"
     compartment_id          = var.compartment_id
-    fault_domain            = var.fault_domains[0]
-    availability_domain     = var.availability_domains[0]
+    fault_domain            = var.fault_domains[1]
+    availability_domain     = var.availability_domains[1]
     shape                   = var.pihole_shape
     hostname                = var.pihole_hostname
     local_public_key_path   = var.local_public_key_path
@@ -22,7 +22,7 @@ resource "oci_core_volume" "pihole_block_volume" {
     compartment_id          = var.compartment_id
 
     #Optional
-    availability_domain     = var.availability_domains[0]
+    availability_domain     = var.availability_domains[1]
     display_name            = var.pihole_block_display_name
     is_auto_tune_enabled    = true
     size_in_gbs             = var.pihole_block_volume_size_in_gbs
