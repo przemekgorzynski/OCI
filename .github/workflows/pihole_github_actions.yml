@@ -49,6 +49,7 @@ jobs:
         with:
           directory: .
           soft_fail: true
+          output_format: junitxml
           framework: terraform
   Plan:
     needs: Validation
