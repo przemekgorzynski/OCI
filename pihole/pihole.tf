@@ -13,7 +13,7 @@ module "pihole_compute"{
     subnet                  = module.pihole_subnet.subnet_data.id
     dns_label               = "pihole-vm"
     image_id                = var.pihole_image_id
-    user_data_base64        = filebase64("${path.module}/cloud-init.yaml")
+    user_data_base64        = filebase64("cloud-init.yaml")
     nsg_ids                 = [oci_core_network_security_group.pihole_nsg.id]
 }
 
