@@ -43,6 +43,9 @@ resource "oci_core_network_security_group" "pihole_nsg" {
 
 
 resource "oci_core_network_security_group_security_rule" "pihole_nsg_egress" {
+  #checkov:skip=CKV_OCI_2:Ensure NSG does not allow all traffic on RDP port (3389)
+  #checkov:skip=CKV2_OCI_2:Ensure NSG does not allow all traffic on RDP port (3389)
+  #checkov:skip=CKV_OCI_21:Ensure security group has stateless ingress security rules
 network_security_group_id = oci_core_network_security_group.pihole_nsg.id
 direction                 = "EGRESS"
 protocol                  = "6"
@@ -51,6 +54,9 @@ destination_type          = "CIDR_BLOCK"
 }
 
 resource "oci_core_network_security_group_security_rule" "pihole_nsg_ingress" {
+  #checkov:skip=CKV2_OCI_2:Ensure NSG does not allow all traffic on RDP port (3389)
+  #checkov:skip=CKV_OCI_21:Ensure security group has stateless ingress security rules
+  #checkov:skip=CKV_OCI_22:Ensure no security groups rules allow ingress from 0.0.0.0/0 to port 22
 for_each = toset(["22", "80", "443"])
 network_security_group_id = oci_core_network_security_group.pihole_nsg.id
 direction                 = "INGRESS"

@@ -34,6 +34,10 @@ resource "oci_core_instance" "compute" {
         remote_data_volume_type             = "PARAVIRTUALIZED"
     }
 
+    instance_options {
+        are_legacy_imds_endpoints_disabled = true
+    }
+
     source_details {
         #Required
         source_id                           = var.image_id

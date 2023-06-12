@@ -41,12 +41,12 @@ jobs:
         run: |
           terraform init -backend=false
           terraform validate
-      - name: Test with Checkov
+      - name: Checkov Test
         id: Checkov
         uses: bridgecrewio/checkov-action@master
         with:
           directory: .
-          soft_fail: true
+          soft_fail: false
           output_format: sarif
           framework: terraform
       - name: Cloud-init validation

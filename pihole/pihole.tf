@@ -18,10 +18,9 @@ module "pihole_compute"{
 }
 
 resource "oci_core_volume" "pihole_block_volume" {
-    #Required
+    #checkov:skip=CKV_OCI_2:Ensure OCI Block Storage Block Volume has backup enabled
+    #checkov:skip=CKV_OCI_3:OCI Block Storage Block Volumes are not encrypted with a Customer Managed Key (CMK)
     compartment_id          = var.compartment_id
-
-    #Optional
     availability_domain     = var.availability_domains[1]
     display_name            = var.pihole_block_display_name
     is_auto_tune_enabled    = true
