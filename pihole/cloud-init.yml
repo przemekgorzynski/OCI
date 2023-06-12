@@ -14,18 +14,26 @@ users:
     ssh_authorized_keys:
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDN2bZBqmM8+JyqyqnckJ/fdyeFpPiuN6Qsj7dGPM6TkGv4tupx5EmZ7LdE2EGNv/N9hI+3onqPACTH4t/i4YeoeU49NrHHRFL5RpyvHas/7sSe5s8sdtX9cFwrZ0r8H8hP8SYHpne04JqNHhq9vpi1+25hb5w2GlICrzC0jmX/CsfqhrY3EdGg+x0Db/nGlYjFLbu1MWAT5VXbvV6HEx6SdJC4w/GEp7mZD+6z1qMTlR1g09lPJbpd8ckN2w8/wn+bJaxQhLSCNB08mezpC/0pn7M7RprA6mfr7cJ3jdG30IPNFOQYe2u3on1cgXngcBWxw7mq4zGa4LM+aG6+oFKad1Ws19cL6kOecp9UIq4tcS1m1cTdMtWvKmvLg6GxcDNXO/Li3Q6EDYxk3lGLAVPuGRxOMTLWkrCaIex5io0Z7PpcJLg5AlBPIlGQhqc4b7lqbbUR3kY19koTD/gqc8dWeXKjK3/cHrxLMsRxYxY5ynpkZX2ChasfA9/YCCF0I6E= przemek@t440s
 
-#package_upgrade: true
+timezone: Europe/Warsaw
+package_update: true
+package_upgrade: true
 
 packages:
  - apt-utils
+ - iputils-ping
+ - dnsutils
+ - vim
 
 runcmd:
   - curl -sSL https://get.docker.com/ | sudo sh
   - sudo curl -sSL https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-linux-x86_64 -o /usr/bin/docker-compose
   - sudo chmod +x /usr/bin/docker-compose
+  - sudo systemctl stop systemd-resolved.service
+  - sudo systemctl disable systemd-resolved.service
+  - echo "nameserver 1.1.1.1" | sudo tee /etc/resolv.conf
 
 power_state:
-    delay: now
-    timeout: 30
-    mode: reboot
-    message: Rebooting machine
+  delay: 1
+  mode: reboot
+  message: Machine will be rebooted
+  condition: if [ -e /var/run/reboot-required ]; then exit 0; else exit 1; fi
