@@ -17,9 +17,9 @@ users:
 
 package_upgrade: true
 
-bootcmd:
-  - sudo apt-get update
-  - curl -sSL https://get.docker.com/ | sudo sh
-  - mkdir -p ~/.docker/cli-plugins/
-  - curl -SL https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
-  - chmod +x ~/.docker/cli-plugins/docker-compose
+#bootcmd:
+#  - sudo apt-get update
+#  - curl -sSL https://get.docker.com/ | sudo sh
+#  - mkdir -p ~/.docker/cli-plugins/
+#  - curl -SL https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
+#  - chmod +x ~/.docker/cli-plugins/docker-compose

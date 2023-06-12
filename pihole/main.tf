@@ -19,6 +19,6 @@ provider "oci" {
   region           = var.region
 }
 
-#output "pihole_compute_data" {
-#  value = module.pihole_compute.compute_data.public_ip
-#}
+output "pihole_compute_data" {
+  value = module.pihole_compute.compute_data.public_ip
+}
