@@ -52,7 +52,7 @@ jobs:
       - name: Cloud-init validation
         run: |
           sudo apt-get install cloud-init -y
-          cloud-init schema --config-file cloud-init.yaml
+          cloud-init schema --config-file cloud-init.yml
   Plan:
     needs: Validation
     runs-on: ubuntu-latest
