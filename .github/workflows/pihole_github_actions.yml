@@ -49,7 +49,7 @@ jobs:
         with:
           directory: .
           soft_fail: true
-          output_format: junitxml
+          output_format: sarif
           framework: terraform
   Plan:
     needs: Validation
