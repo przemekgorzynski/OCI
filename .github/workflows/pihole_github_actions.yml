@@ -43,10 +43,13 @@ jobs:
           terraform validate
       - name: Tfsec scan
         uses: triat/terraform-security-scan@v3.0.3
-      - name: Checkov scan
-        run: |
-          pip3 install checkov
-          checkov -d . --framework terraform --download-external-modules true --soft-fail
+      - name: Test with Checkov
+        id: Checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: .
+          soft_fail: true
+          framework: terraform
   Plan:
     needs: Validation
     runs-on: ubuntu-latest
