@@ -138,13 +138,14 @@ jobs:
         with:
           name: ansible-inventory
           path: ./pihole/ansible/inventory.yml
-      - name: Play Ansible Playbook
-        uses: arillso/action.playbook@master
-        with:
-          playbook: ./pihole/ansible/playbook.yml
-          inventory: ./pihole/ansible/inventory.yml
-          connection: ssh
-          private_key: ${{secrets.SSH_PRIVATE_KEY}}
+      - name: Setup SSH Keys and known_hosts
         env:
-          ANSIBLE_HOST_KEY_CHECKING: 'false'
-          ANSIBLE_DEPRECATION_WARNINGS: 'false'
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run: |
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
+      - name: Install Ansible
+        run: |
+          sudo apt install software-properties-common
+          sudo add-apt-repository --yes --update ppa:ansible/ansible
+          sudo apt install ansible
