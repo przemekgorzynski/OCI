@@ -124,9 +124,9 @@ jobs:
       - name: list files
         run: |
           tree ./
-          ls -la ./ansible
+          cat ./ansible/inventory.yml
       - name: Upload Ansible Inventory Artifact 
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v3
         with:
           name: ansible-inventory
           path: ./ansible/inventory.yml
@@ -142,7 +142,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Download Ansible Inventory Artifact
-        uses: actions/download-artifact@master
+        uses: actions/download-artifact@v3
         with:
           name: ansible-inventory
           path: ./ansible/inventory.yml
