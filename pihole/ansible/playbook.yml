@@ -1,0 +1,34 @@
+---
+- name: Base config
+  hosts: pihole
+  gather_facts: yes
+  user: przemek
+  become: yes
+  become_user: root
+  collections:
+    - oracle.oci
+
+
+  pre_tasks:
+  - name: Check connectivity
+    ping:
+
+  tasks:
+  - name: Set timezone to Europe/Warsaw
+    shell: timedatectl set-timezone "Europe/Warsaw"
+
+  - name: Update system
+    apt:
+      name: "*"
+      state: latest
+      update_cache: yes
+      autoremove: yes
+
+  - name: List volume_attachments
+    oci_compute_volume_attachment_facts:
+      compartment_id: "ocid1.tenancy.oc1..aaaaaaaai6pwlqfxlt2bw7jw5uti2hf2jnwmaxr6wdyrap3q7pqxbjn4bvwa"
+      instance_id: "ocid1.instance.oc1.eu-frankfurt-1.antheljtcc5nbkac36vqse6hfxg3p34jcqak7kureasqxf7vyge6rik2nioq"
+      volume_id: "ocid1.volume.oc1.eu-frankfurt-1.abtheljt4euhsub5cbrb3bgyn72efaqfzfj3c7gamxajks7pppe64q7w5lda"
+    register: test
+
+  - debug: msg="{{ test.stdout }}"
