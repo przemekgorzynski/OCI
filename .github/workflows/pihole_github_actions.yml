@@ -130,10 +130,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: Terraform_Apply
     environment: Pihole
-    defaults:
-      run:
-        shell: bash
-        working-directory: ${{ env.terraform_path }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -147,6 +143,7 @@ jobs:
         with:
           playbook: ./pihole/ansible/playbook.yml
           inventory: ./pihole/ansible/inventory.yml
+          connection: ssh
           private_key: ${{secrets.SSH_PRIVATE_KEY}}
         env:
           ANSIBLE_HOST_KEY_CHECKING: 'false'
