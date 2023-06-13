@@ -22,3 +22,12 @@ provider "oci" {
 output "pihole_compute_data" {
   value = module.pihole_compute.compute_data.public_ip
 }
+
+
+resource "local_file" "inventory" {
+  filename = "ansible/inventory.yml"
+  content  = <<EOF
+[pihole_group]
+pihole ansible_host=${module.pihole_compute.compute_data.public_ip}
+  EOF
+}

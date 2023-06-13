@@ -15,33 +15,18 @@ users:
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDN2bZBqmM8+JyqyqnckJ/fdyeFpPiuN6Qsj7dGPM6TkGv4tupx5EmZ7LdE2EGNv/N9hI+3onqPACTH4t/i4YeoeU49NrHHRFL5RpyvHas/7sSe5s8sdtX9cFwrZ0r8H8hP8SYHpne04JqNHhq9vpi1+25hb5w2GlICrzC0jmX/CsfqhrY3EdGg+x0Db/nGlYjFLbu1MWAT5VXbvV6HEx6SdJC4w/GEp7mZD+6z1qMTlR1g09lPJbpd8ckN2w8/wn+bJaxQhLSCNB08mezpC/0pn7M7RprA6mfr7cJ3jdG30IPNFOQYe2u3on1cgXngcBWxw7mq4zGa4LM+aG6+oFKad1Ws19cL6kOecp9UIq4tcS1m1cTdMtWvKmvLg6GxcDNXO/Li3Q6EDYxk3lGLAVPuGRxOMTLWkrCaIex5io0Z7PpcJLg5AlBPIlGQhqc4b7lqbbUR3kY19koTD/gqc8dWeXKjK3/cHrxLMsRxYxY5ynpkZX2ChasfA9/YCCF0I6E= przemek@t440s
 
 timezone: Europe/Warsaw
-package_update: true
-package_upgrade: true
 
 packages:
  - apt-utils
- - iputils-ping
- - dnsutils
- - vim
- - cron
 
 runcmd:
   - curl -sSL https://get.docker.com/ | sudo sh
   - sudo curl -sSL https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-linux-x86_64 -o /usr/bin/docker-compose
   - sudo chmod +x /usr/bin/docker-compose
-  - sudo systemctl stop systemd-resolved.service
-  - sudo systemctl disable systemd-resolved.service
   - touch /tmp/reboot_ready.txt
 
-write_files:
-  - encoding: b64
-    content: QHJlYm9vdCBlY2hvICJuYW1lc2VydmVyIDQ1LjkwLjI4LjE5NyIgPiAvZXRjL3Jlc29sdi5jb25m
-    path: /var/spool/cron/crontabs/root
-    owner: root:root
-    permissions: '0600'
-
-#power_state:
-#  delay: 1
-#  mode: reboot
-#  message: Machine will be rebooted
-#  condition: if [ -e /tmp/reboot_ready.txt ]; then exit 0; else exit 1; fi
+power_state:
+  delay: 1
+  mode: reboot
+  message: Machine will be rebooted
+  condition: if [ -e /tmp/reboot_ready.txt ]; then exit 0; else exit 1; fi

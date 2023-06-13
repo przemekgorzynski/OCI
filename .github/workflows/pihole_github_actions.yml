@@ -21,9 +21,10 @@ env:
   TF_VAR_tenancy_ocid: ${{ secrets.OCI_CLI_TENANCY }}
   TF_VAR_private_key_path: "/home/runner/.ssh/key.pem"
   TF_HTTP_ADDRESS: ${{ secrets.TF_HTTP_ADDRESS }}     # Pre Authentication string to Oracle bucket for state file
+  DYNU_API_KEY: ${{ secrets.DYNU_API_KEY }}
 
 jobs:
-  Validation:
+  Code_Validation:
     runs-on: ubuntu-latest
     if: ${{ vars.test != 'true' }}
     defaults:
@@ -51,8 +52,8 @@ jobs:
         run: |
           sudo apt-get install cloud-init -y
           cloud-init schema --config-file cloud-init.yml
-  Plan:
-    needs: Validation
+  Terraform_Plan:
+    needs: Code_Validation
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -84,9 +85,9 @@ jobs:
           terraform plan
 #      - name: Run tmate                              # Allows ssh to machine
 #        uses: mxschmitt/action-tmate@v2
-  Apply:
+  Terraform_Apply:
     runs-on: ubuntu-latest
-    needs: Plan
+    needs: Terraform_Plan
     if: contains(fromJSON('["main", "master"]'), github.ref_name)
     environment: Pihole
     defaults:
@@ -120,3 +121,8 @@ jobs:
       - name: Terraform apply
         run: |
           terraform apply -auto-approve
+      - uses: actions/upload-artifact@master
+        name: Upload Ansible Inventory Artifact 
+        with:
+          name: my-artifact
+          path: ansible/inventory.yml

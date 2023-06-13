@@ -29,12 +29,12 @@ resource "oci_core_volume" "pihole_block_volume" {
 }
 
 
-#resource "oci_core_volume_attachment" "pihole_block_volume_attachment" {
-#    attachment_type         = "iscsi"
-#    instance_id             = module.pihole_compute.compute_data.id
-#    volume_id               = oci_core_volume.pihole_block_volume.id
-#    device                  = var.volume_device
-#    display_name            = "pihole_block_volume_attachment"
-#    is_read_only            = false
-#    is_shareable            = false
-#}
+resource "oci_core_volume_attachment" "pihole_block_volume_attachment" {
+    attachment_type         = "iscsi"
+    instance_id             = module.pihole_compute.compute_data.id
+    volume_id               = oci_core_volume.pihole_block_volume.id
+    device                  = var.volume_device
+    display_name            = "pihole_block_volume_attachment"
+    is_read_only            = false
+    is_shareable            = false
+}
