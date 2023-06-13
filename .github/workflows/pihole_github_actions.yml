@@ -145,7 +145,10 @@ jobs:
           ssh-agent -a $SSH_AUTH_SOCK > /dev/null
           ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
       - name: Install Ansible
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
           sudo apt install software-properties-common
           sudo add-apt-repository --yes --update ppa:ansible/ansible
           sudo apt install ansible
+          ansible pihole -i ./pihole/ansible/inventory.yml -m ping
