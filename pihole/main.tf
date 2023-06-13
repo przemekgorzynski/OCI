@@ -28,6 +28,6 @@ resource "local_file" "inventory" {
   filename = "./ansible/inventory.yml"
   content  = <<EOF
 [pihole_group]
-pihole ansible_host=${module.pihole_compute.compute_data.public_ip}
+pihole ansible_host=${module.pihole_compute.compute_data.public_ip} ansible_ssh_common_args='-o StrictHostKeyChecking=no'
   EOF
 }
