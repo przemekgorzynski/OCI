@@ -135,12 +135,12 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: ansible-inventory
-          path: ./pihole/ansible/inventory.yml
+          path: ./pihole/ansible
       - name: Setup SSH Keys and known_hosts
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
-          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          eval `ssh-agent -s`
           ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
       - name: Run tmate                              # Allows ssh to machine
         uses: mxschmitt/action-tmate@v2
