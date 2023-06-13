@@ -142,3 +142,12 @@ jobs:
         with:
           name: ansible-inventory
           path: ./pihole/ansible/inventory.yml
+      - name: Play Ansible Playbook
+        uses: arillso/action.playbook@master
+        with:
+          playbook: ./ansible/playbook.yml
+          inventory: ./ansible/inventory.yml
+          private_key: ${{secrets.SSH_PRIVATE_KEY}}
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: 'false'
+          ANSIBLE_DEPRECATION_WARNINGS: 'false'

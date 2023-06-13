@@ -1,5 +1,5 @@
 ---
-- name: Base config
+- name: PiholeInstall
   hosts: pihole
   gather_facts: yes
   user: przemek
