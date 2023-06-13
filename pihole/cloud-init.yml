@@ -23,6 +23,7 @@ packages:
  - iputils-ping
  - dnsutils
  - vim
+ - cron
 
 runcmd:
   - curl -sSL https://get.docker.com/ | sudo sh
@@ -30,10 +31,17 @@ runcmd:
   - sudo chmod +x /usr/bin/docker-compose
   - sudo systemctl stop systemd-resolved.service
   - sudo systemctl disable systemd-resolved.service
-  - echo "nameserver 1.1.1.1" | sudo tee /etc/resolv.conf
+  - touch /tmp/reboot_ready.txt
 
-power_state:
-  delay: 1
-  mode: reboot
-  message: Machine will be rebooted
-  condition: if [ -e /var/run/reboot-required ]; then exit 0; else exit 1; fi
+write_files:
+  - encoding: b64
+    content: QHJlYm9vdCBlY2hvICJuYW1lc2VydmVyIDQ1LjkwLjI4LjE5NyIgPiAvZXRjL3Jlc29sdi5jb25m
+    path: /var/spool/cron/crontabs/root
+    owner: root:root
+    permissions: '0600'
+
+#power_state:
+#  delay: 1
+#  mode: reboot
+#  message: Machine will be rebooted
+#  condition: if [ -e /tmp/reboot_ready.txt ]; then exit 0; else exit 1; fi

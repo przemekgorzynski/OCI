@@ -25,6 +25,23 @@ resource "oci_core_default_route_table" "route_table" {
     }
 }
 
+resource "oci_core_dhcp_options" "dhcp" {
+  compartment_id = var.compartment_id
+  vcn_id         = oci_core_vcn.vcn.id
+  display_name   = "NextDNS"
+
+  options {
+      type = "DomainNameServer"
+      server_type = "CustomDnsServer"
+      custom_dns_servers = [ "45.90.28.197", "45.90.30.197" ]
+  }
+
+  options {
+    type                = "SearchDomain"
+    search_domain_names = ["pgorzynski.freeddns.org"]
+  }
+}
+
 module "pihole_subnet" {
     source                      = "../modules/subnet"
     compartment_id              = var.compartment_id
