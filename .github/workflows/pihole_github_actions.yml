@@ -121,8 +121,24 @@ jobs:
       - name: Terraform apply
         run: |
           terraform apply -auto-approve
-      - uses: actions/upload-artifact@master
-        name: Upload Ansible Inventory Artifact 
+      - name: Upload Ansible Inventory Artifact 
+        uses: actions/upload-artifact@master
         with:
-          name: my-artifact
-          path: ansible/inventory.yml
+          name: ansible-inventory
+          path: ./ansible/inventory.yml
+  Pihole_with_ansible:
+    runs-on: ubuntu-latest
+    needs: Terraform_Apply
+    environment: Pihole
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ env.terraform_path }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Download Ansible Inventory Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: ansible-inventory
+          path: ./ansible/inventory.yml
