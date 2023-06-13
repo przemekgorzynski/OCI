@@ -8,9 +8,6 @@
   collections:
     - oracle.oci
 
-  vars:
-    ansible_host_key_checking: false
-
   pre_tasks:
   - name: Check connectivity
     ping:
