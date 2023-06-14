@@ -144,10 +144,10 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 #      - name: Run tmate                              # Allows ssh to machine
 #        uses: mxschmitt/action-tmate@v2
-#      - name: Install Ansible
-#        run: |
-#          sudo apt install software-properties-common
-#          sudo add-apt-repository --yes --update ppa:ansible/ansible
-#          sudo apt install ansible
-#          export ANSIBLE_HOST_KEY_CHECKING=False
-#          ansible pihole -i ./pihole/ansible/inventory.yml -m ping --user=przemek
+      - name: Install Ansible
+        run: |
+          sudo apt install software-properties-common
+          sudo add-apt-repository --yes --update ppa:ansible/ansible
+          sudo apt install ansible
+          export ANSIBLE_HOST_KEY_CHECKING=False
+          ansible-playbook -i ./pihole/ansible/inventory.yml ./pihole/ansible/playbook.yml--user=przemek
