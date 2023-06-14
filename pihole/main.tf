@@ -23,7 +23,6 @@ output "pihole_compute_data" {
   value = module.pihole_compute.compute_data.public_ip
 }
 
-
 resource "local_file" "inventory" {
   filename = "./ansible/inventory.yml"
   content  = <<EOF
@@ -31,5 +30,12 @@ all:
   hosts:
     pihole:
       ansible_host: ${module.pihole_compute.compute_data.public_ip}
+  EOF
+}
+
+resource "local_file" "block_storage_data" {
+  filename = "./ansible/block_data.yml"
+  content  = <<EOF
+block_attachment_id: ${oci_core_volume_attachment.pihole_block_volume_attachment.id}
   EOF
 }
