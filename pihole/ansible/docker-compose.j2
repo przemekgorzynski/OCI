@@ -12,7 +12,7 @@ services:
       - "443:443/tcp"
     environment:
       TZ: 'Europe/Warsaw'
-      WEBPASSWORD: 'testowehaslo'
+      WEBPASSWORD: "{{ PIHOLE_ADMIN_PASS }}"
     volumes:
        - '/pihole/data/:/etc/pihole/'
        - '/pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/'
