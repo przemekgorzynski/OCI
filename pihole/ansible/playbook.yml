@@ -33,6 +33,8 @@
       mode: '0777'
     with_items:
       - "/pihole"
+      - "/pihole/data"
+      - "/pihole/etc-dnsmasq.d"
 
   - name: Create a new partition on /dev/sdb
     community.general.parted:
@@ -45,7 +47,7 @@
       dev: /dev/sdb1
     register: filesystem_data
 
-  - name: mount block storage
+  - name: Mount block storage
     mount:
       path: /pihole
       src: "/dev/sdb1"
@@ -55,3 +57,11 @@
 
   - name: Refrest mount drives
     shell: mount -a
+
+  - name: Copy Samba config file
+    template:
+      src: docker-compose.j2
+      dest: /pihole/docker-compose.yml
+      owner: root
+      group: root
+      mode: '0660'
