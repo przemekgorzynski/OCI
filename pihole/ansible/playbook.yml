@@ -6,7 +6,8 @@
   become: yes
   become_user: root
   collections:
-    - oracle.oci
+    - community.general.parted
+    - community.general.filesystem
 
   pre_tasks:
   - name: Check connectivity
@@ -22,3 +23,35 @@
       state: latest
       update_cache: yes
       autoremove: yes
+
+  - name: Create mounting directories 
+    file:
+      state: directory
+      path: "{{ item }}"
+      owner: root
+      group: root
+      mode: '0777'
+    with_items:
+      - "/pihole"
+
+  - name: Create a new partition on /dev/sdb
+    community.general.parted:
+      device: /dev/sdb
+      number: 1
+      state: present
+
+  - filesystem:
+      fstype: xfs
+      dev: /dev/sdb1
+    register: filesystem_data
+
+  - name: mount block storage
+    mount:
+      path: /pihole
+      src: "/dev/sdb1"
+      state: present
+      fstype: xfs
+      opts: defaults,nofail
+
+  - name: Refrest mount drives
+    shell: mount -a
