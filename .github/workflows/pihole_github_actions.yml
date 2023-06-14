@@ -21,7 +21,6 @@ env:
   TF_VAR_tenancy_ocid: ${{ secrets.OCI_CLI_TENANCY }}
   TF_VAR_private_key_path: "/home/runner/.ssh/key.pem"
   TF_HTTP_ADDRESS: ${{ secrets.TF_HTTP_ADDRESS }}     # Pre Authentication string to Oracle bucket for state file
-  DYNU_API_KEY: ${{ secrets.DYNU_API_KEY }}
 
 jobs:
   Code_Validation:
@@ -139,14 +138,17 @@ jobs:
           name: ansible-artifact
           path: ./pihole/ansible
       - uses: webfactory/ssh-agent@v0.7.0
+        env:
+          DYNU_API_KEY: ${{ secrets.DYNU_API_KEY }}
+          PIHOLE_ADMIN_PASS: ${{ secrets.PIHOLE_ADMIN_PASS }}
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-#      - name: Run tmate                              # Allows ssh to machine
-#        uses: mxschmitt/action-tmate@v2
-      - name: Install Ansible
-        run: |
-          sudo apt install software-properties-common
-          sudo add-apt-repository --yes --update ppa:ansible/ansible
-          sudo apt install ansible
-          export ANSIBLE_HOST_KEY_CHECKING=False
-          ansible pihole -i ./pihole/ansible/inventory.yml -m ping --user=przemek
+      - name: Run tmate                              # Allows ssh to machine
+        uses: mxschmitt/action-tmate@v2
+#      - name: Install Ansible
+#        run: |
+#          sudo apt install software-properties-common
+#          sudo add-apt-repository --yes --update ppa:ansible/ansible
+#          sudo apt install ansible
+#          export ANSIBLE_HOST_KEY_CHECKING=False
+#          ansible pihole -i ./pihole/ansible/inventory.yml -m ping --user=przemek
