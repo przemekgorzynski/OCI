@@ -8,6 +8,10 @@ terraform {
       source = "oracle/oci"
       version = "4.122.0"
     }
+    time = {
+      source  = "hashicorp/time"
+      version = "0.9.1"
+    }
   }
 }
 
@@ -24,6 +28,7 @@ output "pihole_compute_data" {
 }
 
 resource "local_file" "inventory" {
+  depends_on = [time_sleep.wait]
   filename = "./ansible/inventory.yml"
   content  = <<EOF
 all:
@@ -34,6 +39,7 @@ all:
 }
 
 resource "local_file" "block_storage_data" {
+  depends_on = [local_file.inventory]
   filename = "./ansible/block_data.yml"
   content  = <<EOF
 block_attachment_id: ${oci_core_volume_attachment.pihole_block_volume_attachment.id}

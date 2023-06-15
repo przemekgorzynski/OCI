@@ -38,3 +38,8 @@ resource "oci_core_volume_attachment" "pihole_block_volume_attachment" {
     is_read_only            = false
     is_shareable            = false
 }
+
+resource "time_sleep" "wait" {
+  depends_on = [oci_core_volume_attachment.pihole_block_volume_attachment]
+  create_duration = "300s"
+}
