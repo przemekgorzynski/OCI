@@ -148,5 +148,6 @@ jobs:
         run: |
           export ANSIBLE_HOST_KEY_CHECKING=False
           echo "dir is: $PWD"
-          echo "GITHUB_WORKSPACE  is: ${{ github.GITHUB_WORKSPACE }}"
+          ansible pihile -i pihole/ansible/inventory.yml -m ping -u przemek
+          ansible-playbok -i pihole/ansible/inventory.yml pihole/ansible/playbook.yml 
 
