@@ -125,8 +125,8 @@ jobs:
         with:
           name: ansible-artifact
           path: | 
-            ${{ github.GITHUB_WORKSPACE }}/pihole/ansible/inventory.yml
-            ${{ github.GITHUB_WORKSPACE }}/pihole/ansible/block_data.yml
+            ./pihole/ansible/inventory.yml
+            ./pihole/ansible/block_data.yml
   Pihole_Ansible:
     runs-on: ubuntu-latest
     needs: Terraform_Apply
