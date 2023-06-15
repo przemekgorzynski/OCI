@@ -142,8 +142,8 @@ jobs:
       - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-#      - name: Run tmate                              # Allows ssh to machine
-#        uses: mxschmitt/action-tmate@v2
+      - name: Run tmate                              # Allows ssh to machine
+        uses: mxschmitt/action-tmate@v2
       - name: Execute Ansible playbook
         run: |
           export ANSIBLE_HOST_KEY_CHECKING=False
