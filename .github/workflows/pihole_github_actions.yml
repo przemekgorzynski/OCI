@@ -147,8 +147,8 @@ jobs:
       - name: Execute Ansible playbook
         run: |
           export ANSIBLE_HOST_KEY_CHECKING=False
-          export PIHOLE_ADMIN_PASS=${{ secrets.PIHOLE_ADMIN_PASS }}
-          export DYNU_API_KEY=${{ secrets.DYNU_API_KEY }}
+          export PIHOLE_ADMIN_PASS="${{ secrets.PIHOLE_ADMIN_PASS }}"
+          export DYNU_API_KEY="${{ secrets.DYNU_API_KEY }}"
           echo "dir is: $PWD"
           ansible pihole -i pihole/ansible/inventory.yml -m ping -u przemek
           ansible-playbook -i pihole/ansible/inventory.yml pihole/ansible/playbook.yml 
