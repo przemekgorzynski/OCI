@@ -150,4 +150,4 @@ jobs:
           sudo add-apt-repository --yes --update ppa:ansible/ansible
           sudo apt install ansible
           export ANSIBLE_HOST_KEY_CHECKING=False
-          ansible-playbook -i ./pihole/ansible/inventory.yml ./pihole/ansible/playbook.yml--user=przemek
+          ansible pihole -i ${{ GITHUB_WORKSPACE }}/pihole/ansible/inventory.yml -m ping -u przemek
