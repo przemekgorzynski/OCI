@@ -148,6 +148,6 @@ jobs:
         run: |
           export ANSIBLE_HOST_KEY_CHECKING=False
           echo "dir is: $PWD"
-          ansible pihile -i pihole/ansible/inventory.yml -m ping -u przemek
-          ansible-playbok -i pihole/ansible/inventory.yml pihole/ansible/playbook.yml 
+          ansible pihole -i pihole/ansible/inventory.yml -m ping -u przemek
+          ansible-playbook -i pihole/ansible/inventory.yml pihole/ansible/playbook.yml 
 
