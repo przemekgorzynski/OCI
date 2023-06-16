@@ -129,6 +129,10 @@ jobs:
   Pihole_Ansible:
     runs-on: ubuntu-latest
     needs: Terraform_Apply
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ env.terraform_path }}
     environment: Pihole
     steps:
       - name: Checkout
@@ -148,9 +152,10 @@ jobs:
           contents: |
             #!/bin/bash
             echo "${{ secrets.ANSIBLE_VAULT_PASS }}";
-      - name: Create PEM file
+      - name: Create Ansible Vault password file
         shell: bash
         run: |
+          chmod +x /tmp/script.sh
           /tmp/script.sh > pihole/ansible/vault_pass.yml
       - name: Run tmate                              # Allows ssh to machine
         uses: mxschmitt/action-tmate@v2
