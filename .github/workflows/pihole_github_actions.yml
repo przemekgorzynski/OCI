@@ -21,8 +21,6 @@ env:
   TF_VAR_tenancy_ocid: ${{ secrets.OCI_CLI_TENANCY }}
   TF_VAR_private_key_path: "/home/runner/.ssh/key.pem"
   TF_HTTP_ADDRESS: ${{ secrets.TF_HTTP_ADDRESS }}     # Pre Authentication string to Oracle bucket for state file
-  DYNU_API_KEY: ${{ secrets.DYNU_API_KEY }}
-  PIHOLE_ADMIN_PASS: ${{ secrets.PIHOLE_ADMIN_PASS }}
 
 jobs:
   Code_Validation:
@@ -142,19 +140,16 @@ jobs:
       - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - name: Set Variables
+      - name: Generate Ansible Vault Pass
+        shell: bash
         run: |
-          export ANSIBLE_HOST_KEY_CHECKING=False
-          export PIHOLE_ADMIN_PASS="${{ secrets.PIHOLE_ADMIN_PASS }}"
-          export DYNU_API_KEY="${{ secrets.DYNU_API_KEY }}"
+          echo ${{ secrets.ANSIBLE_VAULT_PASS }} > pihole/ansible/vault_pass.yml
       - name: Run tmate                              # Allows ssh to machine
         uses: mxschmitt/action-tmate@v2
       - name: Execute Ansible playbook
         run: |
           export ANSIBLE_HOST_KEY_CHECKING=False
-          export PIHOLE_ADMIN_PASS="${{ secrets.PIHOLE_ADMIN_PASS }}"
-          export DYNU_API_KEY="${{ secrets.DYNU_API_KEY }}"
           echo "dir is: $PWD"
           ansible pihole -i pihole/ansible/inventory.yml -m ping -u przemek
-          ansible-playbook -i pihole/ansible/inventory.yml pihole/ansible/playbook.yml 
+          ansible-playbook -i pihole/ansible/inventory.yml pihole/ansible/playbook.yml --vault-password-file pihole/ansible/vault_pass.yml
 

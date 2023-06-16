@@ -9,12 +9,8 @@
     - community.general.parted
     - community.general.filesystem
 
-  vars:
-    os_environment:
-      - key: PIHOLE_ADMIN_PASS
-        value: "{{ lookup('env', 'PIHOLE_ADMIN_PASS' )}}"
-      - key: DYNU_API_KEY
-        value: "{{ lookup('env', 'DYNU_API_KEY' )}}"
+  vars_files:
+  -  vault.yml
 
   pre_tasks:
   - name: Check connectivity
@@ -24,9 +20,7 @@
     ansible.builtin.lineinfile:
       dest: "/etc/environment"
       state: present
-      regexp: "^{{ item.key }}="
-      line: "{{ item.key }}={{ item.value }}"
-    with_items: "{{ os_environment }}"
+      line: "DYNU_API_KEY={{ DYNU_API_KEY }}"
     no_log: true
 
   tasks:
