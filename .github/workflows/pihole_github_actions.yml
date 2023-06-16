@@ -141,13 +141,6 @@ jobs:
       - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-#      - uses: DamianReeves/write-file-action@master
-#        name: Prepare ansible Vault script
-#        with:
-#          path: /tmp/script.sh
-#          contents: |
-#            #!/bin/bash
-#            printf "%s" '${{ secrets.ANSIBLE_VAULT_PASS }}';
       - name: Create Ansible Vault password file
         shell: bash
         run: |
