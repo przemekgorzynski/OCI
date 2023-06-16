@@ -159,7 +159,8 @@ jobs:
       - name: Execute Ansible playbook
         run: |
           export ANSIBLE_HOST_KEY_CHECKING=False
+          cd pihole/ansible
           echo "dir is: $PWD"
-          ansible pihole -i pihole/ansible/inventory.yml -m ping -u przemek
-          ansible-playbook -i pihole/ansible/inventory.yml pihole/ansible/playbook.yml --vault-password-file pihole/ansible/vault_pass.yml
+          ansible pihole -i inventory.yml -m ping -u przemek
+          ansible-playbook -i inventory.yml playbook.yml --vault-password-file /tmp/vault_pass.txt
 
