@@ -145,8 +145,8 @@ jobs:
         shell: bash
         run: |
           printf "%s" '${{ secrets.ANSIBLE_VAULT_PASS }}' > /tmp/vault_pass.txt
-      - name: Run tmate                              # Allows ssh to machine
-        uses: mxschmitt/action-tmate@v2
+#      - name: Run tmate                              # Allows ssh to machine
+#        uses: mxschmitt/action-tmate@v2
       - name: Execute Ansible playbook
         run: |
           export ANSIBLE_HOST_KEY_CHECKING=False
