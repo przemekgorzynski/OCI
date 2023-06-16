@@ -10,7 +10,7 @@
     - community.general.filesystem
 
   vars_files:
-  -  vault.yml
+  -  ./vault.yml
 
   pre_tasks:
   - name: Check connectivity
