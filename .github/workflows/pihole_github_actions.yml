@@ -156,7 +156,8 @@ jobs:
         shell: bash
         run: |
           chmod +x /tmp/script.sh
-          /tmp/script.sh > pihole/ansible/vault_pass.yml
+          touch pihole/ansible/vault_pass.txt
+          /tmp/script.sh > pihole/ansible/vault_pass.txt
       - name: Run tmate                              # Allows ssh to machine
         uses: mxschmitt/action-tmate@v2
       - name: Execute Ansible playbook
