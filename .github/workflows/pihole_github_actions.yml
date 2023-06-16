@@ -96,20 +96,21 @@ jobs:
         uses: actions/checkout@v3
       - name: Terraform Installation
         uses: hashicorp/setup-terraform@v2
-      - uses: DamianReeves/write-file-action@master
-        name: Script for key
-        with:
-          path: /tmp/script.sh
-          contents: |
-            #!/bin/bash
-            echo "${{ secrets.OCI_CLI_KEY_CONTENT }}";
+#      - uses: DamianReeves/write-file-action@master
+#        name: Script for key
+#        with:
+#          path: /tmp/script.sh
+#          contents: |
+#            #!/bin/bash
+#            echo "${{ secrets.OCI_CLI_KEY_CONTENT }}";
       - name: Create PEM file
         shell: bash
         run: |
-          chmod +x /tmp/script.sh && mkdir /home/runner/.ssh
-          touch $TF_VAR_private_key_path
-          /tmp/script.sh > $TF_VAR_private_key_path
-          rm /tmp/script.sh
+          printf "%s" '${{ secrets.OCI_CLI_KEY_CONTENT }}' > $TF_VAR_private_key_path
+#chmod +x /tmp/script.sh && mkdir /home/runner/.ssh
+#touch $TF_VAR_private_key_path
+#/tmp/script.sh > $TF_VAR_private_key_path
+#rm /tmp/script.sh
       - name: Terraform init
         run: |
           terraform init
