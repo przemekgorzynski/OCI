@@ -19,6 +19,7 @@
   - pihole_directory: /pihole
   - traefik_directory: /traefik
   - domain: pgorzynski.freeddns.org
+  - next_dns_server: 45.90.28.197
 
 
   pre_tasks:
@@ -101,3 +102,13 @@
       owner: root
       group: root
       mode: '0644'
+
+  - name: Stop and disable systemd-resolved
+    ansible.builtin.service:
+      name: systemd-resolved
+      state: stopped
+      enabled: false
+
+  - name: Set Custom DNS
+    shell: |
+      echo "nameserver {{ next_dns_server }}" > /etc/resolv.conf
