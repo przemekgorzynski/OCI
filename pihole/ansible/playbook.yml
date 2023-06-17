@@ -8,9 +8,18 @@
   collections:
     - community.general.parted
     - community.general.filesystem
+    - community.docker
 
   vars_files:
   -  ./vault.yml
+
+  vars:
+  - pihole_image: pihole/pihole:latest
+  - trafeik_image: traefik:latest
+  - pihole_directory: /pihole
+  - traefik_directory: /traefik
+  - domain: pgorzynski.freeddns.org
+
 
   pre_tasks:
   - name: Check connectivity
@@ -42,9 +51,11 @@
       group: root
       mode: '0777'
     with_items:
-      - "/pihole"
-      - "/pihole/data"
-      - "/pihole/etc-dnsmasq.d"
+      - "{{ pihole_directory }}"
+      - "{{ pihole_directory }}/data"
+      - "{{ pihole_directory }}/etc-dnsmasq.d"
+      - "{{ traefik_directory }}"
+      - "{{ traefik_directory }}/sslcerts"
 
   - name: Create a new partition on /dev/sdb
     community.general.parted:
@@ -75,3 +86,18 @@
       owner: root
       group: root
       mode: '0660'
+
+  - name: Pull docker image
+    shell: |
+      docker pull "{{ item }}"
+    with_items:
+      - "{{ pihole_image }}"
+      - "{{ trafeik_image }}"
+
+  - name: Copy Traefik configuration
+    ansible.builtin.copy:
+      src: traefik.yml
+      dest: /traefik/traefik.yml
+      owner: root
+      group: root
+      mode: '0644'

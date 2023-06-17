@@ -3,7 +3,7 @@ version: "3"
 services:
   pihole:
     container_name: pihole
-    image: pihole/pihole:latest
+    image: "{{ pihole_image }}"
     ports:
       - "53:53/tcp"
       - "53:53/udp"
@@ -14,8 +14,8 @@ services:
       TZ: 'Europe/Warsaw'
       WEBPASSWORD: "{{ PIHOLE_ADMIN_PASS }}"
     volumes:
-       - '/pihole/data/:/etc/pihole/'
-       - '/pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/'
+       - '{{ pihole_directory }}/data/:/etc/pihole/'
+       - '{{ pihole_directory }}/etc-dnsmasq.d/:/etc/dnsmasq.d/'
     dns:
       - 127.0.0.1
       - 1.1.1.1
@@ -24,6 +24,6 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`pihole.pgorzynski.freeddns.org`)"
+      - "traefik.http.routers.whoami.rule=Host(`pihole.{{ domain }}`)"
       - "traefik.http.routers.whoami.entrypoints=websecure"
       - "traefik.http.routers.whoami.tls.certresolver=production"
