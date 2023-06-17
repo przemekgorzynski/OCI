@@ -19,7 +19,7 @@
   - pihole_directory: /pihole
   - traefik_directory: /traefik
   - domain: pgorzynski.freeddns.org
-  - next_dns_server: 45.90.28.197
+  - next_dns_server: "45.90.28.197"
 
 
   pre_tasks:
@@ -55,7 +55,7 @@
       - "{{ pihole_directory }}"
       - "{{ pihole_directory }}/data"
       - "{{ pihole_directory }}/etc-dnsmasq.d"
-      - "{{ traefik_directory }}"
+      - "{{ traefik_directory }}/config"
       - "{{ traefik_directory }}/sslcerts"
 
   - name: Create a new partition on /dev/sdb
@@ -98,16 +98,16 @@
   - name: Copy Traefik configuration
     ansible.builtin.copy:
       src: traefik.yml
-      dest: /traefik/traefik.yml
+      dest: "{{ traefik_directory }}/config/traefik.yml"
       owner: root
       group: root
       mode: '0644'
 
-  - name: Stop and disable systemd-resolved
-    ansible.builtin.service:
-      name: systemd-resolved
-      state: stopped
-      enabled: false
+#  - name: Stop and disable systemd-resolved
+#    ansible.builtin.service:
+#      name: systemd-resolved
+#      state: stopped
+#      enabled: false
 
   - name: Set Custom DNS
     shell: |
