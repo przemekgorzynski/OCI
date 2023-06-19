@@ -88,7 +88,7 @@
       group: root
       mode: '0660'
 
-  - name: Pull docker image
+  - name: Pull docker images
     shell: |
       docker pull "{{ item }}"
     with_items:

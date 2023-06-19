@@ -98,7 +98,7 @@ direction                 = "INGRESS"
 protocol                  = "17"
 source                    = "0.0.0.0/0"
 destination_type          = "CIDR_BLOCK"
-  tcp_options {
+  udp_options {
     destination_port_range {
       min = each.key
       max = each.key
