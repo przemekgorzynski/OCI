@@ -24,6 +24,7 @@ runcmd:
   - sudo curl -sSL https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-linux-x86_64 -o /usr/bin/docker-compose
   - sudo chmod +x /usr/bin/docker-compose
   - touch /tmp/reboot_ready.txt
+  - echo "    ServerAliveInterval 30" >> /etc/ssh/ssh_config
 
 power_state:
   delay: 1
