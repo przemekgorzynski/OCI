@@ -8,8 +8,6 @@ services:
       - "53:53/tcp"
       - "53:53/udp"
       - "67:67/udp"
-      - "80:80/tcp"
-      - "443:443/tcp"
     environment:
       TZ: 'Europe/Warsaw'
       WEBPASSWORD: "{{ PIHOLE_ADMIN_PASS }}"
@@ -18,7 +16,7 @@ services:
        - '{{ pihole_directory }}/etc-dnsmasq.d/:/etc/dnsmasq.d/'
     dns:
       - 127.0.0.1
-      - 1.1.1.1
+      - "{{ next_dns_server }}"
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
