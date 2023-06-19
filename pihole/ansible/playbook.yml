@@ -103,12 +103,16 @@
       group: root
       mode: '0644'
 
-#  - name: Stop and disable systemd-resolved
-#    ansible.builtin.service:
-#      name: systemd-resolved
-#      state: stopped
-#      enabled: false
+  - name: Stop and disable systemd-resolved
+    ansible.builtin.service:
+      name: systemd-resolved
+      state: stopped
+      enabled: false
 
   - name: Set Custom DNS
     shell: |
       echo "nameserver {{ next_dns_server }}" > /etc/resolv.conf
+
+  - name: Run docker-compose
+    shell: |
+      cd /pihole && docker-compose up -d
